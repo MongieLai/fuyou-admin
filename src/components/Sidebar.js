@@ -200,8 +200,8 @@ export default class Sider extends React.Component {
                     key="ststem"
                     title={`系统管理`}
                 >
-                    <Menu.Item key="yhgl">用户管理</Menu.Item>
-                    <Menu.Item key="ksgl">科室管理</Menu.Item>
+                    <Menu.Item key="yhgl"><NavLink to='/system/yhgl'>用户管理</NavLink></Menu.Item>
+                    <Menu.Item key="ksgl"><NavLink to='/system/ksgl'>科室管理</NavLink></Menu.Item>
                     <Menu.Item key="bmgl">部门管理</Menu.Item>
                     <Menu.Item key="lbgl">轮播管理</Menu.Item>
                 </SubMenu>

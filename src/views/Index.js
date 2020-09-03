@@ -17,7 +17,7 @@ export class Home extends Component {
                         <Header />
                     </LayoutPanel>
 
-                    <LayoutPanel region="west" style={{ width: 200 }}>
+                    <LayoutPanel border={false} region="west" style={{ width: 200 }}>
                         <Sidebar />
                     </LayoutPanel>
 
@@ -29,7 +29,7 @@ export class Home extends Component {
                             <div>12312</div>
                         </Route> */}
                         <Router>
-                            <Route exact path="/system/user" component={User} />
+                            <Route exact path="/system/yhgl" component={User} />
                         </Router>
                         {/* <Home /> */}
                     </LayoutPanel>

@@ -70,15 +70,13 @@ class User extends Component {
     };
     getData() {
         return [
-            { "U_ID": "XW-01", "C_NAME": "黎梦杰", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "Nk-01", "C_NAME": "陈斐", "C_DEPARTMENT_NAME": "内科", "C_SEX": "1", "C_STAT": 0, "C_USER_NAME": "chenfei", "D_UPDATETIME": "2018-08-14" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "FI-SW-01", "C_NAME": "Koi", "C_DEPARTMENT_NAME": "胸外科", "C_SEX": "2", "C_STAT": 1, "C_USER_NAME": "limengjie", "D_UPDATETIME": "2018-09-10" }]
+            { "U_ID": "K001", "C_DEPARTMENT_NAME": "胸外科", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+            { "U_ID": "K002", "C_DEPARTMENT_NAME": "内科", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+            { "U_ID": "K003", "C_DEPARTMENT_NAME": "外科", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+            { "U_ID": "K004", "C_DEPARTMENT_NAME": "体检科", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+            { "U_ID": "K005", "C_DEPARTMENT_NAME": "五官科", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+            { "U_ID": "K006", "C_DEPARTMENT_NAME": "血管科", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+        ]
     }
     getError(name) {
         const { errors } = this.state;
@@ -119,28 +117,18 @@ class User extends Component {
         return (
             <div style={{ padding: 4 }}>
                 <SearchBar>
-                    <LinkButton iconCls="icon-add" onClick={() => { console.log(this.props.history.push('/system/yhgl/add')) }}>新增用户</LinkButton>
-                    <span style={{ marginLeft: 24 }}>请输入用户名称:</span>
-                    <TextBox inputId="tt1" placeholder="请输入用户名" style={{ width: 220 }}></TextBox>
+                    <LinkButton iconCls="icon-add" onClick={() => { console.log(this.props.history.push('/system/ksgl/add')) }}>新增科室</LinkButton>
+                    <span style={{ marginLeft: 24 }}>请输入科室名称:</span>
+                    <TextBox inputId="tt1" placeholder="请输入科室名" style={{ width: 220 }}></TextBox>
                     <LinkButton iconCls="icon-search" plain>查询</LinkButton>
                     <LinkButton iconCls="icon-reload" plain>重置</LinkButton>
                 </SearchBar>
                 <DataGrid border={false} data={this.state.data}>
                     <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
-                    <GridColumn sortable field="C_USER_NAME" title="用户名称" align="center"></GridColumn>
-                    <GridColumn sortable field="C_NAME" title="姓名" align="center"></GridColumn>
-                    <GridColumn field="C_SEX" title="性别" align="center"
-                        render={({ row }) => (
-                            row.C_SEX === `1` ? '男' : '女'
-                        )}></GridColumn>
-                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="所属科室" align="center"></GridColumn>
+                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="科室名称" align="center"></GridColumn>
+                    <GridColumn sortable field="C_ADD_NAME" title="操作人" align="center"></GridColumn>
                     <GridColumn sortable field="D_UPDATETIME" title="操作时间" align="center" width={110} />
-                    <GridColumn field="C_STAT" title="用户状态" align="center" width={110}
-                        render={({ row }) => (
-                            row.C_STAT === `1` ? '正常' : '禁用'
-                        )}></GridColumn>
                     <GridColumn title="操作" align="center" width={150}
-
                         render={({ row }) => (
                             <div style={{ padding: 4 }}>
                                 <LinkButton iconCls='icon-edit' style={{ marginRight: 4 }}>编辑</LinkButton>

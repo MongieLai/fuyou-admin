@@ -4,6 +4,11 @@ import { Layout, LayoutPanel } from 'rc-easyui';
 import Header from '../components/Header'
 import Sidebar from '../components/Sidebar'
 import User from '../components/system/User'
+import Room from '../components/system/Room'
+import UserAdd from '../components/system/UserAdd'
+import RoomAdd from '../components/system/RoomAdd'
+import Department from '../components/system/Department'
+import DepartmentAdd from '../components/system/DepartmentAdd'
 
 import routes from '../router/index'
 console.log(routes)
@@ -29,7 +34,14 @@ export class Home extends Component {
                             <div>12312</div>
                         </Route> */}
                         <Router>
+                            <Redirect from='/' to='/system/ksgl' />
                             <Route exact path="/system/yhgl" component={User} />
+                            <Route exact path="/system/yhgl/add" component={UserAdd} />
+                            <Route exact path="/system/ksgl" component={Room} />
+                            <Route exact path="/system/ksgl/add" component={RoomAdd} />
+                            <Route exact path="/system/bmgl" component={Department} />
+                            <Route exact path="/system/bmgl/add" component={DepartmentAdd} />
+
                         </Router>
                         {/* <Home /> */}
                     </LayoutPanel>

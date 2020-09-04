@@ -5,7 +5,6 @@ const HeaderWrapper = styled.div`
     height:100%;
     background:#1890ff;
     img{
-        margin-left:50px;
         padding:5px;
     }
 `

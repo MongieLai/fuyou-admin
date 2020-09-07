@@ -1,6 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 import { SideMenu, LinkButton, Tree } from 'rc-easyui'
+
 import { NavLink, HashRouter as Router, withRouter } from 'react-router-dom'
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
@@ -8,6 +9,8 @@ const { SubMenu } = Menu;
 const NavWrapper = styled.div`
     height:100%;
 `
+
+const SidebarWrapper = styled.div``
 
 const routeMap = [
     { path: '/home', text: '售后服务申请单' },
@@ -156,24 +159,14 @@ const routeMap = [
 //                 {/* <Tree data={initialState}></Tree> */}
 //                 <NavWrapper>
 //                     <Router>
-//                         {/* <SideMenu style={{ width: this.state.width }}
+//                         <SideMenu style={{ width: this.state.width }}
 //                             border={false}
 //                             renderCollapsed={e => console.log(e)}
 //                             data={this.state.menus}
 //                             collapsed={this.state.collapsed}
 //                             onSelectionChange={(selection) => this.setState({ selection: selection })}
-//                         /> */}
-//                         {/* <ul>
-//                             {routeMap.map((route, index) => {
-//                                 return (
-//                                     <NavLink key={index} to={route.path} activeClassName='active'>
-//                                         <li >
-//                                             {route.text}
-//                                         </li>
-//                                     </NavLink>
-//                                 )
-//                             })}
-//                         </ul> */}
+//                         />
+
 //                     </Router>
 //                 </NavWrapper>
 //             </SidebarWrapper >
@@ -203,13 +196,13 @@ export default class Sider extends React.Component {
                     <Menu.Item key="yhgl"><NavLink to='/system/yhgl'>用户管理</NavLink></Menu.Item>
                     <Menu.Item key="ksgl"><NavLink to='/system/ksgl'>科室管理</NavLink></Menu.Item>
                     <Menu.Item key="mbgl"><NavLink to='/system/bmgl'>部门管理</NavLink></Menu.Item>
-                    <Menu.Item key="lbgl">轮播管理</Menu.Item>
+                    <Menu.Item key="lbgl"><NavLink to='/system/lbgl'>轮播管理</NavLink></Menu.Item>
                 </SubMenu>
                 <SubMenu
                     key="a"
                     title={`新闻中心`}
                 >
-                    <Menu.Item key="yydt">医院动态</Menu.Item>
+                    <Menu.Item key="yydt"><NavLink to='/newsCenter/hosplitDynamic'>医院动态</NavLink></Menu.Item>
                     <Menu.Item key="tzgg">通知公告</Menu.Item>
                     <Menu.Item key="spxw">视频新闻</Menu.Item>
                 </SubMenu>

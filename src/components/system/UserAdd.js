@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Label, TextBox, CheckBox, ComboBox, LinkButton } from 'rc-easyui';
+import { Form as XXX, Label, TextBox, PasswordBox, ComboBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
 const AddUserWrapper = styled.div`
@@ -20,7 +20,7 @@ const AddButton = styled.button`
     margin-left:100px;
     color:white;
     border-radius:4px;
-    padding:10px;
+    padding:12px;
     outline:none;
     border:none;
     cursor:pointer;
@@ -33,10 +33,28 @@ const FormItem = styled.div`
     display:flex;
     align-items:center;
 `
-class App extends React.Component {
+
+const verifyFields = {
+    accountName: `用户登陆名`,
+    password: '登陆密码',
+    department: '所属部门',
+    name: '姓名',
+    gender: '性别'
+}
+
+const RedStart = styled.span`
+    color:red;
+    padding:0 4px 0 0;
+`
+
+class UserAdd extends React.Component {
     constructor() {
         super();
         this.state = {
+            genderList: [ //1男，2女
+                { value: 1, text: '男' },
+                { value: 2, text: '女' }
+            ],
             roomList: [
                 { value: 1, text: "胸外科" },
                 { value: 2, text: "内科" },
@@ -50,11 +68,11 @@ class App extends React.Component {
                 { value: 5, text: "骨科" }
             ],
             user: {
-                accountName: null,
-                password: null,
-                department: null,
+                accountName: '',
+                password: '',
+                department: '',
                 name: '',
-                gender: null
+                gender: ''
             },
             rules: {
                 accountName: "required",
@@ -63,84 +81,83 @@ class App extends React.Component {
                 name: "required",
                 gender: "required"
             },
-            errors: {},
-            heroes: [
-                { value: 11, text: "Mr. Nice" },
-                { value: 12, text: "Narco" },
-                { value: 13, text: "Bombasto" },
-                { value: 14, text: "Celeritas" },
-                { value: 15, text: "Magneta" },
-                { value: 16, text: "RubberMan" },
-                { value: 17, text: "Dynama" },
-                { value: 18, text: "Dr IQ" },
-                { value: 19, text: "Magma" },
-                { value: 20, text: "Tornado" }
-            ]
+            errors: {} //校验的错误信息对象
         }
     }
-    getError(name) {
+    getErrorMessage = (name) => {
         const { errors } = this.state;
         return errors[name] && errors[name].length
             ? errors[name][0]
             : null;
     }
-    hasError(name) {
-        return this.getError(name) != null;
-    }
-    handleChange(name, value) {
-        console.log(name,value)
-        let user = Object.assign({}, this.state.user);
+
+    handleChange = (name, value) => { //from表单里的元素发生值改变时触发
+        console.log(name, value)
+        let user = { ...this.state.user };
         user[name] = value;
-        this.setState({ user: user })
+        this.setState({ user })
     }
-    handleSubmit() {
-        this.form.validate(errors => {
-            // ...
-        })
+
+    submitForm = (event) => {
+        event.preventDefault()
+        const { user } = this.state
+        console.log(user)
+        if (this.state.errors) {
+            return
+        }
     }
+
+    getErrorMessage = (name) => {
+        const { errors } = this.state;
+        console.log(errors)
+        if (!errors) { return }
+        return errors[name] ? `${verifyFields[name]}不能为空` : null;
+    }
+
     render() {
-        const { user, rules, heroes, roomList } = this.state;
+        const { user, rules, roomList, genderList } = this.state;
         return (
             <AddUserWrapper>
                 <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
                 <h2>新增用户</h2>
-                <Form ref={ref => this.form = ref}
+                <XXX
+                    ref={ref => this.form = ref}
                     model={user}
+                    onSubmit={(event) => { this.submitForm(event) }}
                     rules={rules}
                     onChange={this.handleChange.bind(this)} //隐式传递name和value
                     onValidate={(errors) => this.setState({ errors: errors })}
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="name" align="top">登陆用户名： </Label>
-                        <TextBox style={{ width: 300 }} inputId="name" name="accountName" value={user.accountName}></TextBox>
-                        {/* <div className="error">{this.getError('name')}</div> */}
+                        <Label htmlFor="name" align="top"><RedStart>*</RedStart>登陆用户名： </Label>
+                        <TextBox style={{ width: 300 }} name="accountName" value={user.accountName}></TextBox>
+                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('accountName')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="email" align="top">登陆密码： </Label>
-                        <TextBox style={{ width: 300 }} inputId="email" name="password" value={user.password}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
+                        <Label htmlFor="email" align="top"><RedStart>*</RedStart>登陆密码： </Label>
+                        <PasswordBox style={{ width: 300 }} name="password" value={user.password}></PasswordBox>
+                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('password')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="hero" align="top">所属部门： </Label>
-                        <ComboBox style={{ width: 300 }} inputId="hero" name='department' data={roomList} value={user.department}></ComboBox>
-                        {/* <div className="error">{this.getError('hero')}</div> */}
+                        <Label htmlFor="hero" align="top"><RedStart>*</RedStart>所属部门： </Label>
+                        <ComboBox style={{ width: 300 }} name='department' data={roomList} value={user.department}></ComboBox>
+                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('department')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="email" align="top">姓名： </Label>
-                        <TextBox style={{ width: 300 }} inputId="email" name="name" value={user.name}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
+                        <Label htmlFor="email" align="top"><RedStart>*</RedStart>姓名： </Label>
+                        <TextBox style={{ width: 300 }} name="name" value={user.name}></TextBox>
+                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('name')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="email" align="top">性别： </Label>
-                        <TextBox style={{ width: 300 }} inputId="email" name="gender" value={user.gender}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
+                        <Label htmlFor="email" align="top"><RedStart>*</RedStart>性别： </Label>
+                        <ComboBox style={{ width: 300 }} name='gender' data={genderList} value={user.gender}></ComboBox>
+                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('gender')}</div>
                     </FormItem>
-                    <AddButton onClick={() => { console.log(111) }}>添加</AddButton>
-                </Form>
-                {/* <p>{JSON.stringify(user)}</p> */}
+                    <AddButton>添加</AddButton>
+                </XXX>
             </AddUserWrapper>
         );
     }
 }
 
-export default App;
+export default UserAdd;

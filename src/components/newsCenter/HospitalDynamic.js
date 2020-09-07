@@ -23,10 +23,9 @@ const Container = styled.div`
             border-color: #cccccc !important;
         }
     }
-
 `
 
-class Department extends Component {
+class User extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -84,20 +83,10 @@ class Department extends Component {
     };
     getData() {
         return [
-            { "U_ID": "B001", "C_DEPARTMENT_NAME": "急诊部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B002", "C_DEPARTMENT_NAME": "技术部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B003", "C_DEPARTMENT_NAME": "网络管理部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B001", "C_DEPARTMENT_NAME": "急诊部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B002", "C_DEPARTMENT_NAME": "技术部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B003", "C_DEPARTMENT_NAME": "网络管理部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B001", "C_DEPARTMENT_NAME": "急诊部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B002", "C_DEPARTMENT_NAME": "技术部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B003", "C_DEPARTMENT_NAME": "网络管理部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B001", "C_DEPARTMENT_NAME": "急诊部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B003", "C_DEPARTMENT_NAME": "网络管理部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B001", "C_DEPARTMENT_NAME": "急诊部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B002", "C_DEPARTMENT_NAME": "技术部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
-            { "U_ID": "B003", "C_DEPARTMENT_NAME": "网络管理部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
+            { "U_ID": "XW-01", "C_TITLE": "公司粗暴发工作证后大批员工离职公司粗暴发工作证后大批员工离职公司粗暴发工作证后大批员工离职公司粗暴发工作证后大批员工离职公司粗暴发工作证后大批员工离职", "D_APPLYTIME": "2010-07-15", "N_LOOKTIME": "201", "C_PUBLISH_NAME": '信息部', "C_TYPES": "102", "C_IS_PUBLISH": "0", "D_UPDATETIME": '1998-01-31', "C_ADD_NAME": '曾轶可' },
+            { "U_ID": "XW-01", "C_TITLE": "男子被顶引擎盖雨中疾驰", "D_APPLYTIME": "2010-07-15", "N_LOOKTIME": "201", "C_PUBLISH_NAME": '信息部', "C_TYPES": "102", "C_IS_PUBLISH": "0", "D_UPDATETIME": '1998-01-31', "C_ADD_NAME": '曾轶可' },
+            { "U_ID": "XW-01", "C_TITLE": "阿娇头部受重伤被送医", "D_APPLYTIME": "2010-07-15", "N_LOOKTIME": "201", "C_PUBLISH_NAME": '信息部', "C_TYPES": "102", "C_IS_PUBLISH": "0", "D_UPDATETIME": '1998-01-31', "C_ADD_NAME": '曾轶可' },
+            { "U_ID": "XW-01", "C_TITLE": "德约科维奇误伤裁判被取消美网资格", "D_APPLYTIME": "2010-07-15", "N_LOOKTIME": "201", "C_PUBLISH_NAME": '信息部', "C_TYPES": "102", "C_IS_PUBLISH": "0", "D_UPDATETIME": '1998-01-31', "C_ADD_NAME": '曾轶可' },
         ]
     }
     getError(name) {
@@ -137,22 +126,33 @@ class Department extends Component {
     render() {
         const { visible, confirmLoading, ModalText } = this.state;
         return (
-            <Container style={{ padding: 4 }}>
+            <Container>
                 <SearchBar>
-                    <LinkButton iconCls="icon-add" plain onClick={() => { console.log(this.props.history.push('/system/bmgl/add')) }}>新增部门</LinkButton>
-                    <span style={{ marginLeft: 24 }}>请输入部门名称:</span>
-                    <TextBox inputId="tt1" placeholder="请输入部门名" style={{ width: 220 }}></TextBox>
+                    <LinkButton iconCls="icon-add" onClick={() => { console.log(this.props.history.push('/newsCenter/hosplitDynamic/add')) }}>新增动态</LinkButton>
+                    <span style={{ marginLeft: 24 }}>请输入标题:</span>
+                    <TextBox inputId="tt1" placeholder="请输入用户名" style={{ width: 220 }}></TextBox>
                     <LinkButton iconCls="icon-search" plain>查询</LinkButton>
                     <LinkButton iconCls="icon-reload" plain>重置</LinkButton>
                 </SearchBar>
                 <DataGrid data={this.state.data}>
                     <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
-                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="部门名称" align="center"></GridColumn>
-                    <GridColumn sortable field="C_ADD_NAME" title="操作人" align="center"></GridColumn>
-                    <GridColumn sortable field="D_UPDATETIME" title="操作时间" align="center" width={110} />
-                    <GridColumn title="操作" align="center" width={150}
+                    <GridColumn sortable field="C_TITLE" title="标题" align="left" width={400}></GridColumn>
+                    <GridColumn sortable field="D_APPLYTIME" title="添加时间" align="center" />
+                    <GridColumn sortable field="C_PUBLISH_NAME" title="发布部门" align="center" />
+                    <GridColumn sortable field="N_LOOKTIME" title="浏览量" align="center" />
+                    <GridColumn sortable field="C_TYPES" title="类型" align="center" />
+                    <GridColumn sortable field="C_IS_PUBLISH" title="发布状态" align="center" />
+                    <GridColumn sortable field="D_UPDATETIME" title="操作时间" align="center" />
+                    <GridColumn sortable field="D_UPDATETIME" title="操作人" align="center" />
+                    <GridColumn field="C_STAT" title="用户状态" align="center"
+                        render={({ row }) => (
+                            row.C_STAT === `1` ? '正常' : '禁用'
+                        )}></GridColumn>
+                    <GridColumn title="操作" align="center" width={220}
+
                         render={({ row }) => (
                             <div style={{ padding: 4 }}>
+                                {row.C_IS_PUBLISH === 0 ? <LinkButton iconCls='icon-ok' style={{ marginRight: 4 }}>发布</LinkButton> : null}
                                 <LinkButton iconCls='icon-edit' style={{ marginRight: 4 }}>编辑</LinkButton>
                                 <LinkButton iconCls='icon-no' onClick={() => this.handelDelete(row)} > 删除</LinkButton>
                             </div>
@@ -178,9 +178,9 @@ class Department extends Component {
                     layout={this.state.layout}
                     onPageChange={event => this.handlePageChange(event)}
                 />
-            </Container >
+            </Container>
         );
     }
 }
 
-export default Department
+export default User

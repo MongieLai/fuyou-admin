@@ -28,12 +28,6 @@ export class Home extends Component {
                     </LayoutPanel>
 
                     <LayoutPanel border={false} region="center" style={{ background: `#f6f8fd`, height: '100%', padding: '10px' }}>
-                        {/* {routes.map((route, i) => (
-                            <RouteWithSubRoutes key={i} {...route} />
-                        ))} */}
-                        {/* <Route path='*'>
-                            <div>12312</div>
-                        </Route> */}
                         <Router>
                             <Redirect from='/' to='/system/yhgl' />
                             <Route exact path="/system/yhgl" component={User} />
@@ -57,16 +51,5 @@ export class Home extends Component {
 }
 
 
-function RouteWithSubRoutes(route) {
-    return (
-        <Route
-            path={route.path}
-            render={props => (
-                // pass the sub-routes down to keep nesting
-                <route.component {...props} routes={route.routes} />
-            )}
-        />
-    );
-}
 
 export default Home

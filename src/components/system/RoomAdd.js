@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Label, TextBox, CheckBox, ComboBox, LinkButton } from 'rc-easyui';
+import { Form, Label, TextBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
 const AddRoomWrapper = styled.div`
@@ -33,6 +33,16 @@ const FormItem = styled.div`
     display:flex;
     align-items:center;
 `
+
+const RedStart = styled.span`
+    color:red;
+    padding:0 4px 0 0;
+`
+
+const verifyFields = {
+    roomName: `科室名称`
+}
+
 class App extends React.Component {
     constructor() {
         super();
@@ -45,17 +55,9 @@ class App extends React.Component {
                 roomName: "required"
             },
             errors: {
-                accountName: 'required'
             },
         }
     }
-    getError = (name) => {
-        const { errors } = this.state;
-        return errors[name] && errors[name].length
-            ? errors[name][0]
-            : null;
-    }
-
 
     handleChange = (name, value) => {
         console.log(name, value)
@@ -64,11 +66,20 @@ class App extends React.Component {
         this.setState({ roomInfo })
     }
 
-    handleSubmit = () => {
-        this.form.validate(errors => {
-            // ...
-        })
+    submitForm = (event) => {
+        event.preventDefault()
+        // const { roomInfo } = this.state
+        if (this.state.errors) {
+            return
+        }
     }
+
+    getErrorMessage = (name) => {
+        const { errors } = this.state;
+        if (!errors) { return }
+        return errors[name] ? `${verifyFields[name]}不能为空` : null;
+    }
+
     render() {
         const { roomInfo, rules, operateUserName } = this.state;
         return (
@@ -78,18 +89,18 @@ class App extends React.Component {
                 <Form ref={ref => this.form = ref}
                     model={roomInfo}
                     rules={rules}
+                    onSubmit={(event) => { this.submitForm(event) }}
                     onChange={this.handleChange} //隐式传递name和value
                     onValidate={(errors) => this.setState({ errors })}
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="name" align="top">科室名称： </Label>
+                        <Label htmlFor="name" align="top"><RedStart>*</RedStart>科室名称： </Label>
                         <TextBox style={{ width: 300 }} inputId="name" name="roomName" value={roomInfo.roomName}></TextBox>
-                        <div className="error">{this.getError('roomName')}</div>
+                        <div style={{ marginLeft: 8, color: 'red' }} >{this.getErrorMessage('roomName')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">操作人： </Label>
                         <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>

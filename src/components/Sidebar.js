@@ -1,27 +1,28 @@
 import React from 'react'
-import styled from 'styled-components'
-import { SideMenu, LinkButton, Tree } from 'rc-easyui'
+// import styled from 'styled-components'
+// import { SideMenu, LinkButton, Tree } from 'rc-easyui'
 
-import { NavLink, HashRouter as Router, withRouter } from 'react-router-dom'
+// import { NavLink, HashRouter as Router, withRouter } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 import { Menu } from 'antd';
 const { SubMenu } = Menu;
 
-const NavWrapper = styled.div`
-    height:100%;
-`
+// const NavWrapper = styled.div`
+//     height:100%;
+// `
 
-const SidebarWrapper = styled.div``
+// const SidebarWrapper = styled.div``
 
-const routeMap = [
-    { path: '/home', text: '售后服务申请单' },
-    { path: '/xxx', text: '微信用户信息' },
-    { path: '/aaa', text: '售后历史进度查询' },
-    { path: '/sss', text: '客户信息' },
-    { path: '/ddd', text: '项目信息管理' },
-    { path: '/fff', text: '用户' },
-    { path: '/ggg', text: '角色' },
-    { path: '/hhh', text: '用户角色' },
-]
+// const routeMap = [
+//     { path: '/home', text: '售后服务申请单' },
+//     { path: '/xxx', text: '微信用户信息' },
+//     { path: '/aaa', text: '售后历史进度查询' },
+//     { path: '/sss', text: '客户信息' },
+//     { path: '/ddd', text: '项目信息管理' },
+//     { path: '/fff', text: '用户' },
+//     { path: '/ggg', text: '角色' },
+//     { path: '/hhh', text: '用户角色' },
+// ]
 
 // export default class Header extends React.Component {
 //     constructor(props) {

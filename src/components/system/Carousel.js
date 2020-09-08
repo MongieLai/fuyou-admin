@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { DataGrid, GridColumn, Pagination, Form, Dialog, TextBox, NumberBox, Label, LinkButton, ButtonGroup } from 'rc-easyui';
+import { DataGrid, GridColumn, Pagination, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
-import { Modal, Button } from 'antd';
 
 const SearchBar = styled.div`
     display:flex;
@@ -26,24 +25,11 @@ const Container = styled.div`
 
 `
 
-class Department extends Component {
-    constructor(props) {
-        super(props);
+class Carousel extends Component {
+    constructor() {
+        super();
         this.state = {
             data: this.getData(),
-            editingRow: null,
-            model: {},
-            rules: {
-                'itemid': 'required',
-                'name': ['required', 'length[5,10]']
-            },
-            errors: {},
-            title: '',
-            closed: true,
-            ModalText: 'Content of the modal',
-            visible: false,
-            defaultVisible: true,
-            confirmLoading: false,
             pageNumber: 1,
             pageSize: 50,
             total: 50,
@@ -57,40 +43,6 @@ class Department extends Component {
             ],
         }
     }
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
-
-    handleOk = () => {
-        this.setState({
-            ModalText: 'The modal will be closed after two seconds',
-            confirmLoading: true,
-        });
-        setTimeout(() => {
-            this.setState({
-                visible: false,
-                confirmLoading: false,
-            });
-        }, 2000);
-    };
-
-    handelDelete = (row) => {
-        console.log(row)
-        this.setState({
-            visible: true,
-        });
-    };
-    //     U_ID
-    // C_BANNER_NAME
-    // D_ADDTIME
-    // C_IS_DEL
-    // C_ADD_NAME
-    // N_ORDERS
-    // C_IS_PUBLISH
-    // D_PUBLISHTIME
-    // C_PUBLISH_NAME
 
     getData() {
         return [
@@ -98,46 +50,28 @@ class Department extends Component {
             { "U_ID": "T02", "C_BANNER_NAME": "宣传图", "C_ADD_NAME": "李四", "D_ADDTIME": "2018-09-10", "C_IS_PUBLISH": "1" },
         ]
     }
-    getError(name) {
-        const { errors } = this.state;
-        return errors[name] && errors[name].length
-            ? errors[name][0]
-            : null;
+
+    handelEdit = (row) => {
+        console.log('你点了编辑按钮')
     }
-    editRow(row) {
-        this.setState({
-            editingRow: row,
-            model: Object.assign({}, row),
-            title: 'Edit',
-            closed: false
-        });
+
+    handelDelete = (row) => {
+        console.log('你点了删除按钮')
     }
-    saveRow() {
-        this.form.validate(() => {
-            if (this.form.valid()) {
-                let row = Object.assign({}, this.state.editingRow, this.state.model);
-                let data = this.state.data.slice();
-                let index = data.indexOf(this.state.editingRow);
-                data.splice(index, 1, row);
-                this.setState({
-                    data: data,
-                    closed: true
-                })
-            }
-        })
+
+    handelPublish = () => {
+        console.log('你点了发布按钮')
     }
-    deleteRow(row) {
-        this.setState({
-            data: this.state.data.filter(r => r !== row)
-        })
+
+    skipRouteToAdd = () => {
+        this.props.history.push('/system/lbgl/add')
     }
 
     render() {
-        const { visible, confirmLoading } = this.state;
         return (
             <Container style={{ padding: 4 }}>
                 <SearchBar>
-                    <LinkButton iconCls="icon-add" plain onClick={() => { console.log(this.props.history.push('/system/lbgl/add')) }}>新增轮播图片</LinkButton>
+                    <LinkButton iconCls="icon-add" plain onClick={() => this.skipRouteToAdd()}>新增轮播图片</LinkButton>
                 </SearchBar>
                 <DataGrid data={this.state.data}>
                     <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
@@ -151,24 +85,13 @@ class Department extends Component {
                     <GridColumn title="操作" align="center" width={220}
                         render={({ row }) => (
                             <div style={{ padding: 4 }}>
-                                {row.C_IS_PUBLISH === '0' ? <LinkButton iconCls='icon-ok' style={{ marginRight: 4 }}>发布</LinkButton> : null}
-                                <LinkButton iconCls='icon-edit' style={{ marginRight: 4 }}>编辑</LinkButton>
+                                {row.C_IS_PUBLISH === '0' ? <LinkButton iconCls='icon-ok' onClick={() => this.handelPublish()} style={{ marginRight: 4 }}>发布</LinkButton> : null}
+                                <LinkButton iconCls='icon-edit' onClick={() => this.handelEdit(row)} style={{ marginRight: 4 }}>编辑</LinkButton>
                                 <LinkButton iconCls='icon-no' onClick={() => this.handelDelete(row)} > 删除</LinkButton>
                             </div>
                         )}
                     />
                 </DataGrid>
-                <Modal
-                    title="删除确认"
-                    visible={visible}
-                    onOk={this.handleOk}
-                    confirmLoading={confirmLoading}
-                    onCancel={this.handleCancel}
-                    okText={'确认'}
-                    cancelText={'取消'}
-                >
-                    <p>{`确认要删除该用户吗？`}</p>
-                </Modal>
                 <Pagination
                     pageList={[50]}
                     total={this.state.total}
@@ -182,4 +105,4 @@ class Department extends Component {
     }
 }
 
-export default Department
+export default Carousel

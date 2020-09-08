@@ -1,10 +1,10 @@
 import React from 'react';
-import { Form, Label, TextBox, CheckBox, ComboBox, FileButton, LinkButton } from 'rc-easyui';
+import { Form, Label, TextBox, ComboBox, LinkButton } from 'rc-easyui';
 import { Upload, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
-const AddUserWrapper = styled.div`
+const AddDepartmentWrapper = styled.div`
     padding:24px;
     h2{
         margin-top:18px;
@@ -12,7 +12,7 @@ const AddUserWrapper = styled.div`
         font-size:24px;
     }
     label{
-        min-width:100px;
+        min-width:140px;
         text-align:right;
     }
 `
@@ -42,65 +42,53 @@ const FormItem = styled.div`
     display:flex;
     align-items:center;
 `
-class App extends React.Component {
+
+const RedStart = styled.span`
+    color:red;
+    padding:0 4px 0 0;
+`
+
+const verifyFields = {
+    carouselPicture: `上传图片`,
+    isSort: '是否排序'
+}
+
+class CarouselAdd extends React.Component {
     constructor() {
         super();
         this.state = {
             operateUserName: '王五', //sestion获取当前用户账号名
             issueDepartment: '信息部', //sestion获取当前用户所属部门
-            fielName: '',
-            user: {
-                accountName: null,
-                password: null,
-                department: null,
-                name: '',
-                gender: null
-            },
-            fileList: [],
-            sortable: 0,
-            rules: {
-                accountName: "required",
-                password: "required",
-                department: "required",
-                name: "required",
-                gender: "required"
-            },
             errors: {},
-            sortdata: [{ value: 0, text: 0 },
-            { value: 1, text: 1 }],
-            value: null
+            carouselInfo: {
+                carouselPicture: null,
+                isSort: null
+            },
+            rules: {
+                isSort: "required",
+                carouselPicture: 'required'
+
+            },
+            sortdata: [
+                { value: 1, text: '是' },
+                { value: 0, text: '否' }
+            ],
+            //上传文件
+            previewVisible: false,
+            previewImage: '',
+            previewTitle: '',
+            fileList: [],
         }
     }
 
-    getError(name) {
+    getErrorMessage = (name) => {
         const { errors } = this.state;
-        return errors[name] && errors[name].length
-            ? errors[name][0]
-            : null;
-    }
-    hasError(name) {
-        return this.getError(name) != null;
-    }
-    // handleChange(name, value) {
-    //     console.log(name, value)
-    //     let user = Object.assign({}, this.state.user);
-    //     user[name] = value;
-    //     this.setState({ user: user })
-    // }
-    handleSubmit() {
-        this.form.validate(errors => {
-            // ...
-        })
-    }
-    handleSelect(e) {
-        console.log(e)
-        // const a = window.URL.createObjectURL(e[0].name)
-        this.setState({ filename: e[0].name });
+        if (!errors) { return }
+        return errors[name] ? `${verifyFields[name]}不能为空` : null;
     }
 
-
+    //上传文件
     handleCancel = () => this.setState({ previewVisible: false });
-
     handlePreview = async file => {
         if (!file.url && !file.preview) {
             file.preview = await getBase64(file.originFileObj);
@@ -113,13 +101,27 @@ class App extends React.Component {
         });
     };
 
-    handleChange = (e) => {
-        console.log(e)
-        // return this.setState({ fileList })
+    handlePicChange = ({ fileList }) => {
+        this.setState({ fileList, carouselInfo: { ...this.state.carouselInfo, carouselPicture: fileList[0] } })
+    }
+
+    handleChange = (name, value) => {
+        console.log(name, value)
+        let carouselInfo = { ...this.state.carouselInfo };
+        carouselInfo[name] = value;
+        this.setState({ carouselInfo })
+    }
+
+    submitForm = (event) => {
+        event.preventDefault()
+        const { carouselInfo } = this.state
+        if (this.state.errors) {
+            return
+        }
+        console.log(carouselInfo)
     }
     render() {
-        const { user, rules, heroes, operateUserName, issueDepartment, fielName } = this.state;
-        const { previewVisible, previewImage, fileList, previewTitle, } = this.state;
+        const { rules, operateUserName, issueDepartment, previewVisible, previewImage, sortdata, fileList, previewTitle, carouselInfo } = this.state;
         const uploadButton = (
             <div>
                 <PlusOutlined />
@@ -127,24 +129,26 @@ class App extends React.Component {
             </div>
         );
         return (
-            <AddUserWrapper>
+            <AddDepartmentWrapper>
                 <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
                 <h2>新增轮播图片</h2>
-                <Form ref={ref => this.form = ref}
-                    model={user}
+                <Form
+                    ref={ref => this.form = ref}
+                    model={carouselInfo}
+                    onSubmit={(event) => { this.submitForm(event) }}
                     rules={rules}
-                    onChange={this.handleChange.bind(this)} //隐式传递name和value
+                    onChange={this.handleChange} //隐式传递name和value
                     onValidate={(errors) => this.setState({ errors: errors })}
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label align="top">选择本地图片： </Label>
+                        <Label align="top"><RedStart>*</RedStart>选择本地图片： </Label>
                         <>
                             <Upload
                                 action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
                                 listType="picture-card"
                                 fileList={fileList}
                                 onPreview={this.handlePreview}
-                                onChange={this.handleChange}
+                                onChange={this.handlePicChange}
                             >
                                 {fileList.length >= 1 ? null : uploadButton}
                             </Upload>
@@ -158,33 +162,30 @@ class App extends React.Component {
                             </Modal>
                         </>
                     </FormItem>
+                    <FormItem style={{ marginBottom: '20px', marginTop: '-20px' }}>
+                        <TextBox style={{ display: 'none' }} name='carouselPicture' value={carouselInfo.carouselPicture}></TextBox>
+
+                        <div style={{ marginLeft: 140, color: 'red' }}>{this.getErrorMessage('carouselPicture')}</div>
+                    </FormItem>
+                    <FormItem style={{ marginBottom: '20px' }}>
+                        <Label align="top"><RedStart>*</RedStart>是否排序： </Label>
+                        <ComboBox style={{ width: 300 }} name='isSort' data={sortdata} value={carouselInfo.isSort}></ComboBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('isSort')}</div>
+                    </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">发布部门： </Label>
                         <TextBox disabled style={{ width: 300 }} value={issueDepartment}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
                     </FormItem>
 
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">操作人： </Label>
                         <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
                     </FormItem>
-                    <FormItem style={{ marginBottom: '20px' }}>
-                        <Label align="top">是否排序： </Label>
-                        <ComboBox
-                            inputId="c1"
-                            data={this.state.sortdata}
-                            value={this.state.value}
-                            onChange={(value) => this.setState({ value })}
-                        />
-                        {/* <div className="error">{this.getError('email')}</div> */}
-                    </FormItem>
-                    <AddButton onClick={() => { console.log(111) }}>添加</AddButton>
+                    <AddButton>添加</AddButton>
                 </Form>
-                {/* <p>{JSON.stringify(user)}</p> */}
-            </AddUserWrapper>
+            </AddDepartmentWrapper>
         );
     }
 }
 
-export default App;
+export default CarouselAdd;

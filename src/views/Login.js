@@ -59,7 +59,7 @@ export class Login extends Component {
             <LoginWrapper>
                 <div className='login-container'>
                     <Form model={this.state.user} onChange={this.handleChange}>
-                        <img height={200} style={{ marginBottom: 10, borderRadius: `50%` }} src='/images/login-wapper.jpg'></img>
+                        <img height={200} alt='logo' style={{ marginBottom: 10, borderRadius: `50%` }} src='/images/login-wapper.jpg'></img>
                         <div style={{ marginBottom: 20 }}>
                             <TextBox name="username" className='input-dis' value={this.state.user.username} placeholder="请输入账号" iconCls="icon-man"></TextBox>
                         </div>

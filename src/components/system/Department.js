@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { DataGrid, GridColumn, Pagination, Form, Dialog, TextBox, NumberBox, Label, LinkButton, ButtonGroup } from 'rc-easyui';
+import { DataGrid, GridColumn, Pagination, TextBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
-import { Modal, Button } from 'antd';
 
 const SearchBar = styled.div`
     display:flex;
@@ -31,19 +30,7 @@ class Department extends Component {
         super(props);
         this.state = {
             data: this.getData(),
-            editingRow: null,
-            model: {},
-            rules: {
-                'itemid': 'required',
-                'name': ['required', 'length[5,10]']
-            },
-            errors: {},
-            title: '',
-            closed: true,
-            ModalText: 'Content of the modal',
-            visible: false,
-            defaultVisible: true,
-            confirmLoading: false,
+            searchInputValue: '',
             pageNumber: 1,
             pageSize: 50,
             total: 50,
@@ -57,31 +44,7 @@ class Department extends Component {
             ],
         }
     }
-    showModal = () => {
-        this.setState({
-            visible: true,
-        });
-    };
 
-    handleOk = () => {
-        this.setState({
-            ModalText: 'The modal will be closed after two seconds',
-            confirmLoading: true,
-        });
-        setTimeout(() => {
-            this.setState({
-                visible: false,
-                confirmLoading: false,
-            });
-        }, 2000);
-    };
-
-    handelDelete = (row) => {
-        console.log(row)
-        this.setState({
-            visible: true,
-        });
-    };
     getData() {
         return [
             { "U_ID": "B001", "C_DEPARTMENT_NAME": "急诊部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
@@ -100,50 +63,38 @@ class Department extends Component {
             { "U_ID": "B003", "C_DEPARTMENT_NAME": "网络管理部", "C_ADD_NAME": "陈三", "D_UPDATETIME": "2018-09-10" },
         ]
     }
-    getError(name) {
-        const { errors } = this.state;
-        return errors[name] && errors[name].length
-            ? errors[name][0]
-            : null;
+
+    handelEdit = (row) => {
+        console.log('你点了编辑按钮')
     }
-    editRow(row) {
-        this.setState({
-            editingRow: row,
-            model: Object.assign({}, row),
-            title: 'Edit',
-            closed: false
-        });
+
+    handelDelete = (row) => {
+        console.log('你点了删除按钮')
+    };
+
+    handelSearch = () => {
+        console.log('你点了查询按钮')
+        const { searchInputValue } = this.state
+        console.log(searchInputValue)
     }
-    saveRow() {
-        this.form.validate(() => {
-            if (this.form.valid()) {
-                let row = Object.assign({}, this.state.editingRow, this.state.model);
-                let data = this.state.data.slice();
-                let index = data.indexOf(this.state.editingRow);
-                data.splice(index, 1, row);
-                this.setState({
-                    data: data,
-                    closed: true
-                })
-            }
-        })
+
+    handelResetSearch = () => {
+        console.log('你点了重置按钮')
     }
-    deleteRow(row) {
-        this.setState({
-            data: this.state.data.filter(r => r !== row)
-        })
+
+    skipRouteToAdd = () => {
+        this.props.history.push('/system/bmgl/add')
     }
 
     render() {
-        const { visible, confirmLoading, ModalText } = this.state;
         return (
             <Container style={{ padding: 4 }}>
                 <SearchBar>
                     <LinkButton iconCls="icon-add" plain onClick={() => { console.log(this.props.history.push('/system/bmgl/add')) }}>新增部门</LinkButton>
                     <span style={{ marginLeft: 24 }}>请输入部门名称:</span>
-                    <TextBox inputId="tt1" placeholder="请输入部门名" style={{ width: 220 }}></TextBox>
-                    <LinkButton iconCls="icon-search" plain>查询</LinkButton>
-                    <LinkButton iconCls="icon-reload" plain>重置</LinkButton>
+                    <TextBox inputId="tt1" placeholder="请输入部门名" style={{ width: 220 }} onChange={(searchInputValue) => { this.setState({ searchInputValue }) }}></TextBox>
+                    <LinkButton iconCls="icon-search" plain onClick={() => this.handelSearch()}>查询</LinkButton>
+                    <LinkButton iconCls="icon-reload" plain onClick={() => this.handelResetSearch()}>重置</LinkButton>
                 </SearchBar>
                 <DataGrid data={this.state.data}>
                     <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
@@ -153,23 +104,12 @@ class Department extends Component {
                     <GridColumn title="操作" align="center" width={150}
                         render={({ row }) => (
                             <div style={{ padding: 4 }}>
-                                <LinkButton iconCls='icon-edit' style={{ marginRight: 4 }}>编辑</LinkButton>
+                                <LinkButton iconCls='icon-edit' onClick={() => this.handelEdit(row)} style={{ marginRight: 4 }}>编辑</LinkButton>
                                 <LinkButton iconCls='icon-no' onClick={() => this.handelDelete(row)} > 删除</LinkButton>
                             </div>
                         )}
                     />
                 </DataGrid>
-                <Modal
-                    title="删除确认"
-                    visible={visible}
-                    onOk={this.handleOk}
-                    confirmLoading={confirmLoading}
-                    onCancel={this.handleCancel}
-                    okText={'确认'}
-                    cancelText={'取消'}
-                >
-                    <p>{`确认要删除该用户吗？`}</p>
-                </Modal>
                 <Pagination
                     pageList={[50]}
                     total={this.state.total}

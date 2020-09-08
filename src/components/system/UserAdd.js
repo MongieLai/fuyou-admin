@@ -67,7 +67,7 @@ class UserAdd extends React.Component {
                 { value: 4, text: "血液科" },
                 { value: 5, text: "骨科" }
             ],
-            user: {
+            userInfo: {
                 accountName: '',
                 password: '',
                 department: '',
@@ -84,24 +84,17 @@ class UserAdd extends React.Component {
             errors: {} //校验的错误信息对象
         }
     }
-    getErrorMessage = (name) => {
-        const { errors } = this.state;
-        return errors[name] && errors[name].length
-            ? errors[name][0]
-            : null;
-    }
 
     handleChange = (name, value) => { //from表单里的元素发生值改变时触发
         console.log(name, value)
-        let user = { ...this.state.user };
-        user[name] = value;
-        this.setState({ user })
+        let userInfo = { ...this.state.userInfo };
+        userInfo[name] = value;
+        this.setState({ userInfo })
     }
 
     submitForm = (event) => {
         event.preventDefault()
-        const { user } = this.state
-        console.log(user)
+        // const { userInfo } = this.state
         if (this.state.errors) {
             return
         }
@@ -109,20 +102,19 @@ class UserAdd extends React.Component {
 
     getErrorMessage = (name) => {
         const { errors } = this.state;
-        console.log(errors)
         if (!errors) { return }
         return errors[name] ? `${verifyFields[name]}不能为空` : null;
     }
 
     render() {
-        const { user, rules, roomList, genderList } = this.state;
+        const { userInfo, rules, roomList, genderList } = this.state;
         return (
             <AddUserWrapper>
                 <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
                 <h2>新增用户</h2>
                 <XXX
                     ref={ref => this.form = ref}
-                    model={user}
+                    model={userInfo}
                     onSubmit={(event) => { this.submitForm(event) }}
                     rules={rules}
                     onChange={this.handleChange.bind(this)} //隐式传递name和value
@@ -130,28 +122,28 @@ class UserAdd extends React.Component {
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="name" align="top"><RedStart>*</RedStart>登陆用户名： </Label>
-                        <TextBox style={{ width: 300 }} name="accountName" value={user.accountName}></TextBox>
-                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('accountName')}</div>
+                        <TextBox style={{ width: 300 }} name="accountName" value={userInfo.accountName}></TextBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('accountName')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="email" align="top"><RedStart>*</RedStart>登陆密码： </Label>
-                        <PasswordBox style={{ width: 300 }} name="password" value={user.password}></PasswordBox>
-                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('password')}</div>
+                        <PasswordBox style={{ width: 300 }} name="password" value={userInfo.password}></PasswordBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('password')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="hero" align="top"><RedStart>*</RedStart>所属部门： </Label>
-                        <ComboBox style={{ width: 300 }} name='department' data={roomList} value={user.department}></ComboBox>
-                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('department')}</div>
+                        <ComboBox style={{ width: 300 }} name='department' data={roomList} value={userInfo.department}></ComboBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('department')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="email" align="top"><RedStart>*</RedStart>姓名： </Label>
-                        <TextBox style={{ width: 300 }} name="name" value={user.name}></TextBox>
-                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('name')}</div>
+                        <TextBox style={{ width: 300 }} name="name" value={userInfo.name}></TextBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('name')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="email" align="top"><RedStart>*</RedStart>性别： </Label>
-                        <ComboBox style={{ width: 300 }} name='gender' data={genderList} value={user.gender}></ComboBox>
-                        <div style={{ marginLeft: 8, display: 'block', color: 'red' }}>{this.getErrorMessage('gender')}</div>
+                        <ComboBox style={{ width: 300 }} name='gender' data={genderList} value={userInfo.gender}></ComboBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('gender')}</div>
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </XXX>

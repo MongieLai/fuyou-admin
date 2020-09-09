@@ -1,8 +1,8 @@
 import React from 'react';
-import { Form, Label, TextBox, CheckBox, ComboBox, LinkButton } from 'rc-easyui';
+import { Form, Label, TextBox, ComboBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
-
-const AddUserWrapper = styled.div`
+import UeDitor from '../UeDitor'
+const Container = styled.div`
     padding:24px;
     h2{
         margin-top:18px;
@@ -10,14 +10,14 @@ const AddUserWrapper = styled.div`
         font-size:24px;
     }
     label{
-        min-width:100px;
+        min-width:150px;
         text-align:right;
     }
 `
 
 const AddButton = styled.button`
     background:#1890ff;
-    margin-left:100px;
+    margin-left:140px;
     color:white;
     border-radius:4px;
     padding:10px;
@@ -33,76 +33,124 @@ const FormItem = styled.div`
     display:flex;
     align-items:center;
 `
-class App extends React.Component {
+
+const RedStart = styled.span`
+    color:red;
+    padding:0 4px 0 0;
+`
+
+const verifyFields = {
+    title: `动态标题`,
+    content: '动态内容',
+    isSort: '是否排序',
+    type: '类型'
+}
+
+class HospitalDynamicAdd extends React.Component {
     constructor() {
         super();
         this.state = {
-            operateUserName: '王五', //sestion获取当前用户登陆账号名
-            user: {
-                accountName: null,
-                password: null,
-                department: null,
-                name: '',
-                gender: null
+            operateUserName: '王五', //sestion获取当前用户账号名
+            publishDepartment: '信息部', //sestion获取当前用户所属部门
+            newsType: '医院动态',
+            errors: {},
+            hospitalDynamicInfo: {
+                title: '',
+                addTime: null,
+                content: '',
+                isSort: null,
+                type: null
             },
             rules: {
-                accountName: "required",
-                password: "required",
-                department: "required",
-                name: "required",
-                gender: "required"
+                isSort: "required",
+                title: 'required',
+                content: 'required'
             },
-            errors: {},
+            sortList: [
+                { value: 1, text: '是' },
+                { value: 0, text: '否' }
+            ],
+            
         }
     }
-    getError(name) {
+
+    getErrorMessage = (name) => {
         const { errors } = this.state;
-        return errors[name] && errors[name].length
-            ? errors[name][0]
-            : null;
+        if (!errors) { return }
+        return errors[name] ? `${verifyFields[name]}不能为空` : null;
     }
-    hasError(name) {
-        return this.getError(name) != null;
-    }
-    handleChange(name, value) {
+
+    handleChange = (name, value) => {
         console.log(name, value)
-        let user = Object.assign({}, this.state.user);
-        user[name] = value;
-        this.setState({ user: user })
+        let hospitalDynamicInfo = { ...this.state.hospitalDynamicInfo };
+        hospitalDynamicInfo[name] = value;
+        this.setState({ hospitalDynamicInfo })
     }
-    handleSubmit() {
-        this.form.validate(errors => {
-            // ...
-        })
+
+    submitForm = (event) => {
+        event.preventDefault()
+        const { hospitalDynamicInfo } = this.state
+        if (this.state.errors) {
+            return
+        }
+        console.log(hospitalDynamicInfo)
+    }
+
+    handelTextAreaChange = (e) => {
+        console.log(e)
+    }
+
+    handelUeDitorChange = (content)=>{
+        this.setState()
     }
     render() {
-        const { user, rules, heroes, operateUserName } = this.state;
+        const { rules, operateUserName, publishDepartment, sortList, hospitalDynamicInfo, newsType } = this.state;
         return (
-            <AddUserWrapper>
-                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
-                <h2>新增动态</h2>
-                <Form ref={ref => this.form = ref}
-                    model={user}
+            <Container>
+                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.push('/newsCenter/yydt') }} plain>返回</LinkButton>
+                <h2>新增医院动态</h2>
+                <UeDitor onChange={this.handelUeDitorChange}></UeDitor>
+                <Form
+                    ref={ref => this.form = ref}
+                    model={hospitalDynamicInfo}
+                    onSubmit={(event) => { this.submitForm(event) }}
                     rules={rules}
-                    onChange={this.handleChange.bind(this)} //隐式传递name和value
+                    onChange={this.handleChange} //隐式传递name和value
                     onValidate={(errors) => this.setState({ errors: errors })}
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label htmlFor="name" align="top">标题： </Label>
-                        <TextBox onFocus={() => { console.log(111) }} style={{ width: 300 }} inputId="name" name="accountName" value={user.accountName}></TextBox>
-                        {/* <div className="error">{this.getError('name')}</div> */}
+                        <Label align="top"><RedStart>*</RedStart>动态标题： </Label>
+                        <TextBox style={{ width: 300 }} name='title' value={hospitalDynamicInfo.title}></TextBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('title')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
-                        <Label align="top">内容： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
-                        {/* <div className="error">{this.getError('email')}</div> */}
+                        <Label align="top"><RedStart>*</RedStart>动态内容： </Label>
+                        {/* <TextBox style={{ width: 300 }} name='content' value={hospitalDynamicInfo.content}></TextBox> */}
+                        <TextBox style={{ width: 500, height: 400 }} multiline name='content' value={hospitalDynamicInfo.content} />
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('content')}</div>
                     </FormItem>
-                    <AddButton onClick={() => { console.log(111) }}>添加</AddButton>
+                    <FormItem style={{ marginBottom: '20px' }}>
+                        <Label align="top"><RedStart>*</RedStart>是否排序： </Label>
+                        <ComboBox style={{ width: 300 }} name='isSort' data={sortList} value={hospitalDynamicInfo.isSort}></ComboBox>
+                        <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('isSort')}</div>
+                    </FormItem>
+                    <FormItem style={{ marginBottom: '20px' }}>
+                        <Label align="top">类型： </Label>
+                        <TextBox disabled style={{ width: 300 }} value={newsType}></TextBox>
+                    </FormItem>
+                    <FormItem style={{ marginBottom: '20px' }}>
+                        <Label align="top">发布部门： </Label>
+                        <TextBox disabled style={{ width: 300 }} value={publishDepartment}></TextBox>
+                    </FormItem>
+                    <FormItem style={{ marginBottom: '20px' }}>
+                        <Label align="top">操作人： </Label>
+                        <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
+                    </FormItem>
+                    <AddButton>添加</AddButton>
                 </Form>
-                {/* <p>{JSON.stringify(user)}</p> */}
-            </AddUserWrapper>
+            </Container>
         );
     }
 }
 
-export default App;
+export default HospitalDynamicAdd;

@@ -93,14 +93,14 @@ class User extends Component {
                     <LinkButton iconCls="icon-reload" plain onClick={() => { this.handelResetSearch() }}>重置</LinkButton>
                 </ActionsBar>
                 <DataGrid data={this.state.data}>
-                    <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
-                    <GridColumn sortable field="C_USER_NAME" title="用户名称" align="center"></GridColumn>
-                    <GridColumn sortable field="C_NAME" title="姓名" align="center"></GridColumn>
+                    <GridColumn sortable field="U_ID" title="序号" align="center" />
+                    <GridColumn sortable field="C_USER_NAME" title="用户名称" align="center" />
+                    <GridColumn sortable field="C_NAME" title="姓名" align="center" />
                     <GridColumn field="C_SEX" title="性别" align="center"
                         render={({ row }) => (
                             row.C_SEX === `1` ? '男' : '女'
                         )}></GridColumn>
-                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="所属科室" align="center"></GridColumn>
+                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="所属科室" align="center" />
                     <GridColumn sortable field="D_UPDATETIME" title="操作时间" align="center" width={110} />
                     <GridColumn field="C_STAT" title="用户状态" align="center" width={110}
                         render={({ row }) => (

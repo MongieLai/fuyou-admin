@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DataGrid, GridColumn, Pagination, TextBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
-const SearchBar = styled.div`
+const ActionsBar = styled.div`
     display:flex;
     padding:8px 8px 8px 20px;
     align-items:center;
@@ -22,7 +22,6 @@ const Container = styled.div`
             border-color: #cccccc !important;
         }
     }
-
 `
 
 class Department extends Component {
@@ -89,17 +88,17 @@ class Department extends Component {
     render() {
         return (
             <Container style={{ padding: 4 }}>
-                <SearchBar>
+                <ActionsBar>
                     <LinkButton iconCls="icon-add" plain onClick={() => { console.log(this.props.history.push('/system/bmgl/add')) }}>新增部门</LinkButton>
                     <span style={{ marginLeft: 24 }}>请输入部门名称:</span>
                     <TextBox inputId="tt1" placeholder="请输入部门名" style={{ width: 220 }} onChange={(searchInputValue) => { this.setState({ searchInputValue }) }}></TextBox>
                     <LinkButton iconCls="icon-search" plain onClick={() => this.handelSearch()}>查询</LinkButton>
                     <LinkButton iconCls="icon-reload" plain onClick={() => this.handelResetSearch()}>重置</LinkButton>
-                </SearchBar>
+                </ActionsBar>
                 <DataGrid data={this.state.data}>
-                    <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
-                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="部门名称" align="center"></GridColumn>
-                    <GridColumn sortable field="C_ADD_NAME" title="操作人" align="center"></GridColumn>
+                    <GridColumn sortable field="U_ID" title="序号" align="center" />
+                    <GridColumn sortable field="C_DEPARTMENT_NAME" title="部门名称" align="center" />
+                    <GridColumn sortable field="C_ADD_NAME" title="操作人" align="center" />
                     <GridColumn sortable field="D_UPDATETIME" title="操作时间" align="center" width={110} />
                     <GridColumn title="操作" align="center" width={150}
                         render={({ row }) => (

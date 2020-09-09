@@ -203,9 +203,9 @@ export default class Sider extends React.Component {
                     key="a"
                     title={`新闻中心`}
                 >
-                    <Menu.Item key="yydt"><NavLink to='/newsCenter/hosplitDynamic'>医院动态</NavLink></Menu.Item>
-                    <Menu.Item key="tzgg">通知公告</Menu.Item>
-                    <Menu.Item key="spxw">视频新闻</Menu.Item>
+                    <Menu.Item key="yydt"><NavLink to='/newsCenter/yydt'>医院动态</NavLink></Menu.Item>
+                    <Menu.Item key="tzgg"><NavLink to='/newsCenter/tzgg'>通知公告</NavLink></Menu.Item>
+                    <Menu.Item key="spxw"><NavLink to='/newsCenter/spxw'>视频新闻</NavLink></Menu.Item>
                 </SubMenu>
                 <SubMenu
                     key="s"

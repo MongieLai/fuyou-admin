@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Label, TextBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
-const AddRoomWrapper = styled.div`
+const Container = styled.div`
     padding:24px;
     h2{
         margin-top:18px;
@@ -83,8 +83,8 @@ class App extends React.Component {
     render() {
         const { roomInfo, rules, operateUserName } = this.state;
         return (
-            <AddRoomWrapper>
-                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
+            <Container>
+                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.push('/system/ksgl') }} plain>返回</LinkButton>
                 <h2>新增科室</h2>
                 <Form ref={ref => this.form = ref}
                     model={roomInfo}
@@ -104,7 +104,7 @@ class App extends React.Component {
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>
-            </AddRoomWrapper>
+            </Container>
         );
     }
 }

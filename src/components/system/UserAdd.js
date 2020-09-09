@@ -2,7 +2,7 @@ import React from 'react';
 import { Form as XXX, Label, TextBox, PasswordBox, ComboBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
-const AddUserWrapper = styled.div`
+const Container = styled.div`
     padding:24px;
     h2{
         margin-top:18px;
@@ -109,8 +109,8 @@ class UserAdd extends React.Component {
     render() {
         const { userInfo, rules, roomList, genderList } = this.state;
         return (
-            <AddUserWrapper>
-                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
+            <Container>
+                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.push('/system/yhgl') }} plain>返回</LinkButton>
                 <h2>新增用户</h2>
                 <XXX
                     ref={ref => this.form = ref}
@@ -147,7 +147,7 @@ class UserAdd extends React.Component {
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </XXX>
-            </AddUserWrapper>
+            </Container>
         );
     }
 }

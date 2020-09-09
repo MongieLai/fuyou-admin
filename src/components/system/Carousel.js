@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { DataGrid, GridColumn, Pagination, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
-const SearchBar = styled.div`
+const ActionsBar = styled.div`
     display:flex;
     padding:8px 8px 8px 20px;
     align-items:center;
@@ -22,7 +22,6 @@ const Container = styled.div`
             border-color: #cccccc !important;
         }
     }
-
 `
 
 class Carousel extends Component {
@@ -70,13 +69,13 @@ class Carousel extends Component {
     render() {
         return (
             <Container style={{ padding: 4 }}>
-                <SearchBar>
+                <ActionsBar>
                     <LinkButton iconCls="icon-add" plain onClick={() => this.skipRouteToAdd()}>新增轮播图片</LinkButton>
-                </SearchBar>
+                </ActionsBar>
                 <DataGrid data={this.state.data}>
-                    <GridColumn sortable field="U_ID" title="序号" align="center"></GridColumn>
-                    <GridColumn sortable field="C_BANNER_NAME" title="图片名称" align="center"></GridColumn>
-                    <GridColumn sortable field="C_ADD_NAME" title="操作人" align="center"></GridColumn>
+                    <GridColumn sortable field="U_ID" title="序号" align="center" />
+                    <GridColumn sortable field="C_BANNER_NAME" title="图片名称" align="center" />
+                    <GridColumn sortable field="C_ADD_NAME" title="操作人" align="center" />
                     <GridColumn sortable field="D_ADDTIME" title="操作时间" align="center" width={110} />
                     <GridColumn sortable field="C_IS_PUBLISH" title="发布状态" align="center" width={110}
                         render={({ row }) => (

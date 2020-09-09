@@ -11,8 +11,13 @@ import Department from '../components/system/Department'
 import DepartmentAdd from '../components/system/DepartmentAdd'
 import Carousel from '../components/system/Carousel'
 import CarouselAdd from '../components/system/CarouselAdd'
+
 import HosplitDynamic from '../components/newsCenter/HospitalDynamic'
 import HospitalDynamicAdd from '../components/newsCenter/HospitalDynamicAdd'
+import NotificationAnnouncement from '../components/newsCenter/NotificationAnnouncement'
+import NotificationAnnouncementAdd from '../components/newsCenter/NotificationAnnouncementAdd'
+import VideoNews from '../components/newsCenter/VideoNews'
+import VideoNewsAdd from '../components/newsCenter/VideoNewsAdd'
 
 export class Home extends Component {
     render() {
@@ -38,11 +43,15 @@ export class Home extends Component {
                             <Route exact path="/system/bmgl/add" component={DepartmentAdd} />
                             <Route exact path="/system/lbgl" component={Carousel} />
                             <Route exact path="/system/lbgl/add" component={CarouselAdd} />
-                            <Route exact path="/newsCenter/hosplitDynamic" component={HosplitDynamic} />
-                            <Route exact path="/newsCenter/hosplitDynamic/add" component={HospitalDynamicAdd} />
+
+                            <Route exact path="/newsCenter/yydt" component={HosplitDynamic} />
+                            <Route exact path="/newsCenter/yydt/add" component={HospitalDynamicAdd} />
+                            <Route exact path="/newsCenter/tzgg" component={NotificationAnnouncement} />
+                            <Route exact path="/newsCenter/tzgg/add" component={NotificationAnnouncementAdd} />
+                            <Route exact path="/newsCenter/spxw" component={VideoNews} />
+                            <Route exact path="/newsCenter/spwx/add" component={VideoNewsAdd} />
 
                         </Router>
-                        {/* <Home /> */}
                     </LayoutPanel>
                 </Layout>
             </div>

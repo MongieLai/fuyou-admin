@@ -4,7 +4,7 @@ import { Upload, Modal } from 'antd';
 import { PlusOutlined } from '@ant-design/icons';
 import styled from 'styled-components';
 
-const AddDepartmentWrapper = styled.div`
+const Container = styled.div`
     padding:24px;
     h2{
         margin-top:18px;
@@ -12,14 +12,14 @@ const AddDepartmentWrapper = styled.div`
         font-size:24px;
     }
     label{
-        min-width:140px;
+        min-width:150px;
         text-align:right;
     }
 `
 
 const AddButton = styled.button`
     background:#1890ff;
-    margin-left:100px;
+    margin-left:140px;
     color:white;
     border-radius:4px;
     padding:10px;
@@ -69,7 +69,7 @@ class CarouselAdd extends React.Component {
                 carouselPicture: 'required'
 
             },
-            sortdata: [
+            sortList: [
                 { value: 1, text: '是' },
                 { value: 0, text: '否' }
             ],
@@ -121,7 +121,7 @@ class CarouselAdd extends React.Component {
         console.log(carouselInfo)
     }
     render() {
-        const { rules, operateUserName, issueDepartment, previewVisible, previewImage, sortdata, fileList, previewTitle, carouselInfo } = this.state;
+        const { rules, operateUserName, issueDepartment, previewVisible, previewImage, sortList, fileList, previewTitle, carouselInfo } = this.state;
         const uploadButton = (
             <div>
                 <PlusOutlined />
@@ -129,8 +129,8 @@ class CarouselAdd extends React.Component {
             </div>
         );
         return (
-            <AddDepartmentWrapper>
-                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
+            <Container>
+                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.push('/system/lbgl') }} plain>返回</LinkButton>
                 <h2>新增轮播图片</h2>
                 <Form
                     ref={ref => this.form = ref}
@@ -169,7 +169,7 @@ class CarouselAdd extends React.Component {
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top"><RedStart>*</RedStart>是否排序： </Label>
-                        <ComboBox style={{ width: 300 }} name='isSort' data={sortdata} value={carouselInfo.isSort}></ComboBox>
+                        <ComboBox style={{ width: 300 }} name='isSort' data={sortList} value={carouselInfo.isSort}></ComboBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('isSort')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
@@ -183,7 +183,7 @@ class CarouselAdd extends React.Component {
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>
-            </AddDepartmentWrapper>
+            </Container>
         );
     }
 }

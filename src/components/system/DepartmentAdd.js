@@ -2,7 +2,7 @@ import React from 'react';
 import { Form, Label, TextBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
 
-const AddDepartmentWrapper = styled.div`
+const Container = styled.div`
     padding:24px;
     h2{
         margin-top:18px;
@@ -62,7 +62,7 @@ class App extends React.Component {
 
     handleChange = (name, value) => {
         console.log(name, value)
-        let departmentInfo = { ... this.state.departmentInfo };
+        let departmentInfo = Object.assign({}, this.state.departmentInfo)
         departmentInfo[name] = value;
         this.setState({ departmentInfo })
     }
@@ -84,9 +84,9 @@ class App extends React.Component {
     render() {
         const { departmentInfo, rules, operateUserName } = this.state;
         return (
-            <AddDepartmentWrapper>
-                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.goBack() }} plain>返回</LinkButton>
-                <h2>新增科室</h2>
+            <Container>
+                <LinkButton iconCls="icon-back" onClick={() => { this.props.history.push('/system/bmgl') }} plain>返回</LinkButton>
+                <h2>新增部门</h2>
                 <Form ref={ref => this.form = ref}
                     model={departmentInfo}
                     rules={rules}
@@ -105,7 +105,7 @@ class App extends React.Component {
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>
-            </AddDepartmentWrapper>
+            </Container>
         );
     }
 }

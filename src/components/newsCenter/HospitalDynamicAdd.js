@@ -70,7 +70,7 @@ class HospitalDynamicAdd extends React.Component {
                 { value: 1, text: '是' },
                 { value: 0, text: '否' }
             ],
-            
+
         }
     }
 
@@ -100,7 +100,7 @@ class HospitalDynamicAdd extends React.Component {
         console.log(e)
     }
 
-    handelUeDitorChange = (content)=>{
+    handelUeDitorChange = (content) => {
         this.setState()
     }
     render() {
@@ -109,7 +109,7 @@ class HospitalDynamicAdd extends React.Component {
             <Container>
                 <LinkButton iconCls="icon-back" onClick={() => { this.props.history.push('/newsCenter/yydt') }} plain>返回</LinkButton>
                 <h2>新增医院动态</h2>
-                <UeDitor onChange={this.handelUeDitorChange}></UeDitor>
+                {/* <UeDitor onChange={this.handelUeDitorChange}></UeDitor> */}
                 <Form
                     ref={ref => this.form = ref}
                     model={hospitalDynamicInfo}
@@ -120,31 +120,31 @@ class HospitalDynamicAdd extends React.Component {
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top"><RedStart>*</RedStart>动态标题： </Label>
-                        <TextBox style={{ width: 300 }} name='title' value={hospitalDynamicInfo.title}></TextBox>
+                        <TextBox style={{ width: "50%" }} name='title' value={hospitalDynamicInfo.title}></TextBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('title')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top"><RedStart>*</RedStart>动态内容： </Label>
                         {/* <TextBox style={{ width: 300 }} name='content' value={hospitalDynamicInfo.content}></TextBox> */}
-                        <TextBox style={{ width: 500, height: 400 }} multiline name='content' value={hospitalDynamicInfo.content} />
+                        <TextBox style={{ width: "50%", height: 400 }} multiline name='content' value={hospitalDynamicInfo.content} />
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('content')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top"><RedStart>*</RedStart>是否排序： </Label>
-                        <ComboBox style={{ width: 300 }} name='isSort' data={sortList} value={hospitalDynamicInfo.isSort}></ComboBox>
+                        <ComboBox style={{ width: "25%" }} name='isSort' data={sortList} value={hospitalDynamicInfo.isSort}></ComboBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('isSort')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">类型： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={newsType}></TextBox>
+                        <TextBox disabled style={{ width: "25%" }} value={newsType}></TextBox>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">发布部门： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={publishDepartment}></TextBox>
+                        <TextBox disabled style={{ width: "25%" }} value={publishDepartment}></TextBox>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">操作人： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
+                        <TextBox disabled style={{ width: "25%" }} value={operateUserName}></TextBox>
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>

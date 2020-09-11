@@ -122,27 +122,27 @@ class UserAdd extends React.Component {
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="name" align="top"><RedStart>*</RedStart>登陆用户名： </Label>
-                        <TextBox style={{ width: 300 }} name="accountName" value={userInfo.accountName}></TextBox>
+                        <TextBox style={{ width: "25%" }} name="accountName" value={userInfo.accountName}></TextBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('accountName')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="email" align="top"><RedStart>*</RedStart>登陆密码： </Label>
-                        <PasswordBox style={{ width: 300 }} name="password" value={userInfo.password}></PasswordBox>
+                        <PasswordBox style={{ width: "25%" }} name="password" value={userInfo.password}></PasswordBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('password')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="hero" align="top"><RedStart>*</RedStart>所属部门： </Label>
-                        <ComboBox style={{ width: 300 }} name='department' data={roomList} value={userInfo.department}></ComboBox>
+                        <ComboBox style={{ width: "25%" }} name='department' data={roomList} value={userInfo.department}></ComboBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('department')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="email" align="top"><RedStart>*</RedStart>姓名： </Label>
-                        <TextBox style={{ width: 300 }} name="name" value={userInfo.name}></TextBox>
+                        <TextBox style={{ width: "25%" }} name="name" value={userInfo.name}></TextBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('name')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="email" align="top"><RedStart>*</RedStart>性别： </Label>
-                        <ComboBox style={{ width: 300 }} name='gender' data={genderList} value={userInfo.gender}></ComboBox>
+                        <ComboBox style={{ width: "25%" }} name='gender' data={genderList} value={userInfo.gender}></ComboBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('gender')}</div>
                     </FormItem>
                     <AddButton>添加</AddButton>

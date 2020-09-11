@@ -65,7 +65,7 @@ class VideoNews extends Component {
     }
 
     skipRouteToAdd = () => {
-        this.props.history.push('/newsCenter/tzgg/add')
+        this.props.history.push('/newsCenter/spxw/add')
     }
 
     render() {
@@ -73,7 +73,7 @@ class VideoNews extends Component {
         return (
             <Container style={{ padding: 4 }}>
                 <ActionsBar>
-                    <LinkButton iconCls="icon-add" plain onClick={() => this.skipRouteToAdd()}>新增通知公告</LinkButton>
+                    <LinkButton iconCls="icon-add" plain onClick={() => this.skipRouteToAdd()}>新增视频新闻</LinkButton>
                 </ActionsBar>
                 <DataGrid data={data}>
                     <GridColumn sortable field="U_ID" title="序号" align="center" />

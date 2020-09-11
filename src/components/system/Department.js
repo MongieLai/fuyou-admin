@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { DataGrid, GridColumn, Pagination, TextBox, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
-
 const ActionsBar = styled.div`
     display:flex;
     padding:8px 8px 8px 20px;
@@ -29,7 +28,7 @@ class Department extends Component {
         super(props);
         this.state = {
             data: this.getData(),
-            searchInputValue: '',
+            searchInputValue: '123',
             pageNumber: 1,
             pageSize: 50,
             total: 50,
@@ -40,7 +39,7 @@ class Department extends Component {
                 "links",
                 "next",
                 "last",
-            ],
+            ]
         }
     }
 
@@ -65,6 +64,8 @@ class Department extends Component {
 
     handelEdit = (row) => {
         console.log('你点了编辑按钮')
+        this.setState({ searchInputValue: 'jkljlkjkl' })
+
     }
 
     handelDelete = (row) => {
@@ -88,6 +89,7 @@ class Department extends Component {
     render() {
         return (
             <Container style={{ padding: 4 }}>
+                {this.state.searchInputValue}
                 <ActionsBar>
                     <LinkButton iconCls="icon-add" plain onClick={() => { console.log(this.props.history.push('/system/bmgl/add')) }}>新增部门</LinkButton>
                     <span style={{ marginLeft: 24 }}>请输入部门名称:</span>

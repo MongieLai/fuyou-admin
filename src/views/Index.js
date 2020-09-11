@@ -49,7 +49,7 @@ export class Home extends Component {
                             <Route exact path="/newsCenter/tzgg" component={NotificationAnnouncement} />
                             <Route exact path="/newsCenter/tzgg/add" component={NotificationAnnouncementAdd} />
                             <Route exact path="/newsCenter/spxw" component={VideoNews} />
-                            <Route exact path="/newsCenter/spwx/add" component={VideoNewsAdd} />
+                            <Route exact path="/newsCenter/spxw/add" component={VideoNewsAdd} />
 
                         </Router>
                     </LayoutPanel>

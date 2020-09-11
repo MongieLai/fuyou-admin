@@ -56,7 +56,7 @@ export class Login extends Component {
     }
     render() {
         return (
-            <LoginWrapper>
+            <LoginWrapper test={true}>
                 <div className='login-container'>
                     <Form model={this.state.user} onChange={this.handleChange}>
                         <img height={200} alt='logo' style={{ marginBottom: 10, borderRadius: `50%` }} src='/images/login-wapper.jpg'></img>

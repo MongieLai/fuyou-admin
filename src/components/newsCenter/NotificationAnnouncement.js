@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { DataGrid, GridColumn, Pagination, LinkButton } from 'rc-easyui';
 import styled from 'styled-components';
-
 const ActionsBar = styled.div`
     display:flex;
     padding:8px 8px 8px 20px;

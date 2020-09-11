@@ -169,17 +169,17 @@ class CarouselAdd extends React.Component {
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top"><RedStart>*</RedStart>是否排序： </Label>
-                        <ComboBox style={{ width: 300 }} name='isSort' data={sortList} value={carouselInfo.isSort}></ComboBox>
+                        <ComboBox style={{ width: "25%" }} name='isSort' data={sortList} value={carouselInfo.isSort}></ComboBox>
                         <div style={{ marginLeft: 8, color: 'red' }}>{this.getErrorMessage('isSort')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">发布部门： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={issueDepartment}></TextBox>
+                        <TextBox disabled style={{ width: "25%" }} value={issueDepartment}></TextBox>
                     </FormItem>
 
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">操作人： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
+                        <TextBox disabled style={{ width: "25%" }} value={operateUserName}></TextBox>
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>

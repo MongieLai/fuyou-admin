@@ -9,6 +9,9 @@ const ActionsBar = styled.div`
     span{
         margin-right:10px;
     }
+    &:hover{
+        
+    }
 `
 
 const Container = styled.div`
@@ -43,6 +46,10 @@ class HospitalDynamic extends Component {
         }
     }
 
+    componentDidMount = () => {
+
+    }
+
     getData() {
         return [
             { "U_ID": "T01", "C_TITLE": "澳情报人员突击搜查中国记者住所", "D_APPLYTIME": "2018-07-08", "C_PUBLISH_NAME": "信息部", "N_LOOKTIME": "10001", "C_TYPES": "102", "C_IS_PUBLISH": 0, "D_UPDATETIME": "2016-08-07", "C_ADD_NAME": "张三" },
@@ -52,6 +59,9 @@ class HospitalDynamic extends Component {
         ]
     }
 
+    fuck = () => {
+
+    }
     handelEdit = (row) => {
         console.log('你点了编辑按钮')
     }
@@ -75,6 +85,9 @@ class HospitalDynamic extends Component {
                 <ActionsBar>
                     <LinkButton iconCls="icon-add" plain onClick={() => this.skipRouteToAdd()}>新增医院动态</LinkButton>
                 </ActionsBar>
+                <div>
+                    <button></button>
+                </div>
                 <DataGrid data={data}>
                     <GridColumn sortable field="U_ID" title="序号" align="center" />
                     <GridColumn field="C_TITLE" title="新闻标题" width={400} />

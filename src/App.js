@@ -11,7 +11,6 @@ import 'rc-easyui/dist/themes/default/easyui.css';
 import 'rc-easyui/dist/themes/icon.css';
 import 'rc-easyui/dist/themes/react.css';
 
-
 function App() {
   return (
     <Router>
@@ -23,7 +22,5 @@ function App() {
     </Router>
   );
 }
-
-
 
 export default App;

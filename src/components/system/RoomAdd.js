@@ -95,12 +95,12 @@ class App extends React.Component {
                 >
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label htmlFor="name" align="top"><RedStart>*</RedStart>科室名称： </Label>
-                        <TextBox style={{ width: 300 }} inputId="name" name="roomName" value={roomInfo.roomName}></TextBox>
+                        <TextBox style={{ width: "25%" }} inputId="name" name="roomName" value={roomInfo.roomName}></TextBox>
                         <div style={{ marginLeft: 8, color: 'red' }} >{this.getErrorMessage('roomName')}</div>
                     </FormItem>
                     <FormItem style={{ marginBottom: '20px' }}>
                         <Label align="top">操作人： </Label>
-                        <TextBox disabled style={{ width: 300 }} value={operateUserName}></TextBox>
+                        <TextBox disabled style={{ width: "25%" }} value={operateUserName}></TextBox>
                     </FormItem>
                     <AddButton>添加</AddButton>
                 </Form>
